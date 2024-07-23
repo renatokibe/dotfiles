@@ -2,21 +2,6 @@
 PATH=$HOME/.bin:$PATH
 PATH=$HOME/bin:$PATH
 
-# Brewed path
-PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
-# Brewed Python Path
-PATH=/usr/local/lib/python2.7/site-packages:$PATH
-
-# Brewed python 3 as the system default (aliased to python)
-PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
-
-# Brewed Ruby path
-PATH=/usr/local/opt/ruby/bin:$PATH
-
-# Brewed npm
-PATH=/usr/local/share/npm/bin:$PATH
-
 # export npm packages installed in home dir to PATH
 LOCAL_NPM_PACKAGES="${HOME}/.local/share/npm"
 export PATH="$PATH:$LOCAL_NPM_PACKAGES/bin"

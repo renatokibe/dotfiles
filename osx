@@ -7,7 +7,7 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 alias ls="eza"
 
-# android tools installed with brew
+# brewed android tools/sdk
 export ANDROID_HOME="/usr/local/share/android-sdk"
 export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
@@ -15,5 +15,23 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # fzf brew installation
-source /usr/local/opt/fzf/shell/key-bindings.zsh
-source /usr/local/opt/fzf/shell/completion.zsh
+source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+source /opt/homebrew/opt/fzf/shell/completion.zsh
+
+# brewed path
+export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+
+# brewed python 3 as the system default (aliased to python)
+export PATH=/usr/local/opt/python@3.9/libexec/bin:$PATH
+
+# brewed ruby path
+export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+
+# gnu awk aliased to awk (to replace macos one)
+export PATH="/opt/homebrew/opt/gawk/libexec/gnubin:$PATH"
+
+# zsh completions
+export fpath=(/opt/homebrew/share/zsh/site-functions $fpath)
+
+# asdf install script
+source /opt/homebrew/opt/asdf/libexec/asdf.sh
