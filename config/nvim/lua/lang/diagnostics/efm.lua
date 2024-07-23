@@ -30,10 +30,10 @@ local efm_config = {
     init_options = {documentFormatting = true, codeAction = true},
     settings = {languages = languages, log_level = 1, log_file = '~/efm.log'},
     on_attach = function (client, bufnr)
-      client.resolved_capabilities.rename = false
-      client.resolved_capabilities.hover = false
-      client.resolved_capabilities.document_formatting = true
-      client.resolved_capabilities.completion = false
+      client.server_capabilities.renameProvider = false
+      client.server_capabilities.hoverProvider = false
+      client.server_capabilities.documentFormattingProvider = true
+      client.server_capabilities.completionProvider = false
       on_attach(client, bufnr)
     end
 }

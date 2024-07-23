@@ -26,7 +26,7 @@ return function(client, bufnr)
       end
     })
 
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
     -- Mappings.
     local opts = { buffer = bufnr }

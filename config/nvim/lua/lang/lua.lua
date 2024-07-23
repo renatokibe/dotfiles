@@ -3,7 +3,7 @@ local config = require('lang.config')
 local lua_lsp_config ={
     -- available in path (installed through arch package manager)
     on_attach = function(client, bufnr)
-        client.resolved_capabilities.document_formatting = false
+        client.server_capabilities.documentFormattingProvider = false
         config.default_on_attach(client, bufnr)
     end,
     cmd = {"lua-language-server"},

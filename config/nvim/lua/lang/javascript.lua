@@ -3,7 +3,7 @@ local config = require('lang.config')
 local tsserver_config = {
   root_dir = config.lsp.util.root_pattern("yarn.lock", "lerna.json", ".git"),
   on_attach = function(client, bufnr)
-    client.resolved_capabilities.document_formatting = false
+    client.server_capabilities.documentFormattingProvider = false
 
     local ts_utils = require("nvim-lsp-ts-utils")
     -- defaults
