@@ -57,11 +57,11 @@ alias open_expo_developer_menu='adb shell input keyevent 82'
 # get the current tmux layout
 alias tmux_layout='tmux list-windows -F "#{window_active} #{window_layout}" | grep "^1" | cut -d " " -f 2'
 
-alias exa='exa --group-directories-first --icons'
-alias exo='exa --group-directories-first --icons --octal-permissions'
-alias exala='exa -la'
-alias k='exa'
-alias kla='exala'
+alias eza='eza --group-directories-first --icons'
+alias ezo='eza --group-directories-first --icons --octal-permissions'
+alias ezala='eza -la'
+alias k='eza'
+alias kla='ezala'
 
 alias docker_stop_all='docker stop $(docker ps -a -q)'
 

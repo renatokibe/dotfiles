@@ -5,7 +5,7 @@ export CPPFLAGS=-Qunused-arguments
 # fix dir and file output colors in supercabtree/k
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
-alias ls="exa"
+alias ls="eza"
 
 # android tools installed with brew
 export ANDROID_HOME="/usr/local/share/android-sdk"
