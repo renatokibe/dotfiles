@@ -6,16 +6,23 @@ return function(client, bufnr)
     })
     require'illuminate'.on_attach(client)
 
-    local function buf_set_option(...)
-        vim.api.nvim_buf_set_option(bufnr, ...)
-    end
-    -- display popup with diagnostic information
+    -- display lsp saga popup with diagnostic information
     vim.api.nvim_create_autocmd("CursorHold", {
       buffer = bufnr,
       callback = function()
-        vim.cmd('Lspsaga show_line_diagnostics ++unfocus')
+        local opts = {
+          focusable = false,
+          close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+          border = 'rounded',
+          source = 'always',
+          prefix = ' ',
+          scope = 'line',
+        }
+
+        vim.diagnostic.open_float(nil, opts)
       end
     })
+
 
     vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
