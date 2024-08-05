@@ -1,10 +1,10 @@
 local on_attach = require('lang.on_attach')
 local lspconfig = require('lspconfig')
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+local cmp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local Config = {}
-
-Config.capabilities = capabilities
+Config.capabilities = vim.tbl_deep_extend('force', default_capabilities, cmp_capabilities)
 Config.lsp = lspconfig
 Config.default_on_attach = on_attach
 Config.default_lsp = {

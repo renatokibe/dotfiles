@@ -1,4 +1,4 @@
-require('plugins.compe')
+require('plugins.cmp')
 require('plugins.autopairs')
 require('plugins.treesitter')
 require('plugins.colorizer')
