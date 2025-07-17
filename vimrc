@@ -245,7 +245,7 @@ call plug#begin('~/.vim/plugged')
   " copilot goodies
   " try to lazyload this unless we move to lazy.nvim
   Plug 'zbirenbaum/copilot.lua'
-  Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+  Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'main' }
 
 call plug#end()
 
