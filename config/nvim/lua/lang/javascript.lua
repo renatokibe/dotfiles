@@ -47,4 +47,4 @@ local tsserver_config = {
   end
 }
 
-config.lsp.tsserver.setup(config.merge(tsserver_config))
+config.lsp.ts_ls.setup(config.merge(tsserver_config))
