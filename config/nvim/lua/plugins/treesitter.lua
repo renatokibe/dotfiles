@@ -76,3 +76,4 @@ require("nvim-treesitter.install").prefer_git = true
 
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.cmd('autocmd FileType ruby setlocal indentkeys-=.')
