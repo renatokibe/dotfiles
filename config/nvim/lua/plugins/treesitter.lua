@@ -4,6 +4,7 @@ treesitter.setup {
     ensure_installed = 'all',
     highlight = {enable = true},
     indent = {enable = true},
+    ignore_install = { "ipkg" },
     textsubjects = {
         enable = true,
         keymaps = {
@@ -69,6 +70,8 @@ require('ts_context_commentstring').setup {
 
   },
 }
+
+require("nvim-treesitter.install").prefer_git = true
 
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
