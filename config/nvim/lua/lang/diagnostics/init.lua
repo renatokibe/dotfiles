@@ -31,11 +31,18 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 --     end
 -- end
 
-vim.fn.sign_define("LspDiagnosticsSignError",
-                   {text = "", texthl = "LspDiagnosticsDefaultError"})
-vim.fn.sign_define("LspDiagnosticsSignWarning",
-                   {text = "", texthl = "LspDiagnosticsDefaultWarning"})
-vim.fn.sign_define("LspDiagnosticsSignInformation",
-                   {text = "", texthl = "LspDiagnosticsDefaultInformation"})
-vim.fn.sign_define("LspDiagnosticsSignHint",
-                   {text = "", texthl = "LspDiagnosticsDefaultHint"})
+-- These icons are here for referenc of good icons for these diagnostic types
+-- ERROR: ''
+-- WARN: ''
+-- INFO: ''
+-- HINT: '󰌵'
+vim.diagnostic.config({
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = '',
+        [vim.diagnostic.severity.WARN] = '',
+        [vim.diagnostic.severity.INFO] = '',
+        [vim.diagnostic.severity.HINT] = '',
+      },
+    }
+})
