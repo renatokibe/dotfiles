@@ -69,8 +69,8 @@ M.setup = function()
       git_status = {
         symbols = {
           -- Change type
-          added     = "", -- or "✚", but this is redundant info if you use git_status_colors on the name
-          modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
+          added     = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
+          modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
           deleted   = "✖",-- this can only be used in the git_status source
           renamed   = "",-- this can only be used in the git_status source
           -- Status type
@@ -90,16 +90,13 @@ M.setup = function()
         nowait = true,
       },
       mappings = {
-        ["<space>"] = {
-            "toggle_node",
-            nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
-        },
+        ["<space>"] = { "toggle_node", nowait = false }, -- disable `nowait` if you have existing combos starting with this char that you want to use
         ["<2-LeftMouse>"] = "open",
         ["<cr>"] = "open",
         ["<esc>"] = "revert_preview",
         ["P"] = { "toggle_preview", config = { use_float = true } },
-        ["c-x"] = "open_split",
-        ["c-v"] = "open_vsplit",
+        ["<C-x>"] = "open_split",
+        ["<C-v>"] = "open_vsplit",
         -- ["S"] = "split_with_window_picker",
         -- ["s"] = "vsplit_with_window_picker",
         ["t"] = "open_tabnew",
@@ -152,8 +149,10 @@ M.setup = function()
           --"*.meta",
           --"*/src/*/tsconfig.json",
         },
-        always_show = { -- remains visible even if other settings would normally hide it
-          --".gitignored",
+        always_show_by_pattern = { -- remains visible even if other settings would normally hide it
+          ".git*",
+          ".eslint*",
+          ".env*",
         },
         never_show = { -- remains hidden even if visible is toggled to true, this overrides always_show
           --".DS_Store",
