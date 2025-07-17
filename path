@@ -35,7 +35,6 @@ if commandExists brew; then
 fi
 
 # ruby gems
-export GEM_HOME="$(gem env user_gemhome)"
 export PATH="$PATH:$GEM_HOME/bin"
 
 PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
