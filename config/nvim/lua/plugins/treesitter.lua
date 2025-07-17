@@ -5,6 +5,7 @@ treesitter.setup {
     highlight = {enable = true},
     indent = {enable = true},
     ignore_install = { "ipkg" },
+    auto_install = true,
     textsubjects = {
         enable = true,
         keymaps = {
