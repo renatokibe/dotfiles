@@ -1,5 +1,5 @@
 -- Language specific key mappings
---require('keymappings')
+require('lang.keymappings')
 require('lang.fuzzy')
 require('lang.kind')
 require('lang.symbols_outline')

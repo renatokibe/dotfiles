@@ -3,7 +3,7 @@ local M = {}
 M.setup = function ()
     require('copilot').setup({
         panel = {
-            enabled = true,
+            enabled = false, -- disable in favor of using it as a source for nvim-cmp
             auto_refresh = false,
             keymap = {
                 jump_prev = "[[",
@@ -18,7 +18,7 @@ M.setup = function ()
             },
         },
         suggestion = {
-            enabled = true,
+            enabled = false, -- disable in favor of using it as a source for nvim-cmp
             auto_trigger = false,
             debounce = 75,
             keymap = {
@@ -44,8 +44,7 @@ M.setup = function ()
         copilot_node_command = 'node', -- Node.js version must be > 18.x
         server_opts_overrides = {},
     })
-
-    require("CopilotChat").setup()
+  require("copilot_cmp").setup()
 end
 
 return M

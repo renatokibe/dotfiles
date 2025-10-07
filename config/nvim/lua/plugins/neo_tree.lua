@@ -11,13 +11,6 @@ M.setup = function()
     enable_diagnostics = true,
     sort_case_insensitive = false, -- used when sorting files and directories in the tree
     sort_function = nil , -- use a custom function for sorting files and directories in the tree
-    -- sort_function = function (a,b)
-    --       if a.type == b.type then
-    --           return a.path > b.path
-    --       else
-    --           return a.type > b.type
-    --       end
-    --   end , -- this sorts files and directories descendantly
     default_component_configs = {
       container = {
         enable_character_fade = true
@@ -56,17 +49,15 @@ M.setup = function()
       },
       git_status = {
         symbols = {
-          -- Change type
-          added     = "✚", -- or "✚", but this is redundant info if you use git_status_colors on the name
-          modified  = "", -- or "", but this is redundant info if you use git_status_colors on the name
-          deleted   = "✖",-- this can only be used in the git_status source
-          renamed   = "",-- this can only be used in the git_status source
-          -- Status type
-          untracked = "",
-          ignored   = "",
-          unstaged  = "",
-          staged    = "",
-          conflict  = "",
+          staged    = "S",  -- ""
+          unstaged  = "U",  -- ""
+          untracked = "??", -- ""
+          conflict  = "UU", -- ""
+          ignored   = "I",  -- ""
+          renamed   = "R",-- "󰁕"
+          added     = "A", -- "✚"
+          modified  = "M", -- ""
+          deleted   = "D", -- ""
         }
       },
     },

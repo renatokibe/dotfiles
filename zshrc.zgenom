@@ -20,20 +20,20 @@ if ! zgenom saved; then
     zgenom load wfxr/forgit
     zgenom load clarketm/zsh-completions
     zgenom load zdharma-continuum/fast-syntax-highlighting
-    zgenom load mbenford/zsh-tmux-auto-title
     zgenom load b4b4r07/emoji-cli
-    zgenom load paulmelnikow/zsh-startup-timer
     zgenom load agkozak/zsh-z
     zgenom load andrewferrier/fzf-z
     zgenom load u1and0/fzf-extras
     zgenom load ~/Projects/dotfiles/shell-extensions/fzf
     zgenom load ~/Projects/dotfiles/shell-extensions/history
-    zgenom load laggardkernel/zsh-tmux
+    zgenom load laggardkernel/zsh-tmux # this one might be increasing cpu usage. there's no alternative, so I might just ditch it and test.
     zgenom load wazum/zsh-directory-dot-expansion
-    zgenom load z-shell/zsh-diff-so-fancy
+    #zgenom load z-shell/zsh-diff-so-fancy
 
     # zsh theme
     zgenom load akz92/clean clean
+    #zgenom load spaceship-prompt/spaceship-prompt spaceship
+    #zgenom load agkozak/agkozak-zsh-prompt
 
     # add binaries
     # zgenom bin tj/git-extras

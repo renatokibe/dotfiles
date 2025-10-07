@@ -1,15 +1,17 @@
 local config = require('lang.config')
+
+local Solargraph = {
+  config = {
+
+  }
+}
 local M = {
   config = {
-    diagnostics = false, -- Use rubocop LSP directly
-    autoformat = false,
-formatting = false,
-    useBundler = true,
   }
 }
 
 function M.setup()
-  config.lsp.solargraph.setup(config.merge(M.config))
+  config.lsp.solargraph.setup(config.default_lsp)
 end
 
 return M

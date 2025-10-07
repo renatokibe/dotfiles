@@ -6,7 +6,7 @@ local lualine = require 'lualine'
 local palette = require 'nordic.palette'
 
 -- Color table for highlights
-local colors = {
+local nord_colors = {
     bg = palette.black,
     fg = palette.dark_white,
     yellow = palette.yellow,
@@ -19,6 +19,26 @@ local colors = {
     blue = palette.blue,
     red = palette.red
 }
+
+local configuration = vim.fn['everforest#get_configuration']()
+local everforest_palette = vim.fn['everforest#get_palette'](configuration.background, configuration.colors_override)
+
+local everforest_colors = {
+    bg = everforest_palette.bg0[1],
+    fg = everforest_palette.fg[1],
+    yellow = everforest_palette.yellow[1],
+    cyan = everforest_palette.aqua[1],
+    darkblue = everforest_palette.blue[1],
+    green = everforest_palette.green[1],
+    orange = everforest_palette.orange[1],
+    violet = everforest_palette.purple[1],
+    magenta = everforest_palette.purple[1],
+    blue = everforest_palette.blue[1],
+    red = everforest_palette.red[1]
+}
+
+local colors = everforest_colors
+
 
 local is_medium_screen = function() return not (vim.fn.winwidth(0) < 120) end
 
@@ -52,12 +72,14 @@ local config = {
         -- Disable sections and component separators
         component_separators = "",
         section_separators = "",
+        -- theme = 'everforest'
         theme = {
             -- We are going to use lualine_c an lualine_x as left and
             -- right section. Both are highlighted by c theme .  So we
             -- are just setting default looks o statusline
             normal = {c = {fg = colors.fg, bg = colors.bg}},
             inactive = {c = {fg = colors.fg, bg = colors.bg}}
+
         }
     },
     sections = {
@@ -189,7 +211,7 @@ ins_left {
         local icon = ' '
         local default_msg = icon .. 'no language servers found'
 
-        for _, client in pairs(vim.lsp.buf_get_clients()) do
+        for _, client in pairs(vim.lsp.get_clients()) do
             clients[#clients + 1] = icon .. client.name
         end
 
@@ -197,7 +219,7 @@ ins_left {
 
         return table.concat(clients, ' ')
     end,
-    color = {fg = palette.dark_white, gui = 'bold'}
+    color = {fg = colors.cyan, gui = 'bold'}
 }
 
 -- Add components to right sections

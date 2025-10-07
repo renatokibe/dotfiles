@@ -2,10 +2,10 @@ local treesitter = require 'nvim-treesitter.configs'
 
 treesitter.setup {
     ensure_installed = 'all',
-    highlight = {enable = true},
-    indent = {enable = true},
     ignore_install = { "ipkg" },
     auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
     textsubjects = {
         enable = true,
         keymaps = {
@@ -29,7 +29,7 @@ treesitter.setup {
     playground = {
         enable = true,
         disable = {},
-        updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+        updatetime = 25,         -- Debounced time for highlighting nodes in the playground from source code
         persist_queries = false, -- Whether the query persists across vim sessions
         keybindings = {
             toggle_query_editor = 'o',
@@ -45,9 +45,9 @@ treesitter.setup {
         }
     },
     -- autopairs using treesitter
-    autopairs = {enable = true},
+    autopairs = { enable = true },
     -- autopairs behavior for tags
-    autotag = {enable = true},
+    autotag = { enable = true },
     -- improved match for %
     matchup = {
         enable = true -- mandatory, false will disable the whole extension
@@ -57,19 +57,19 @@ treesitter.setup {
 -- context aware (for languages that can embbed templates) commentstring
 -- (to use with vim-commentary and such)
 require('ts_context_commentstring').setup {
-  enable_autocmd = false,
-  languages = {
-    typescript = '// %s',
-    -- configuration for jsx and tsx
-    javascript = {
-        __default = '// %s',
-        jsx_element = '{/* %s */}',
-        jsx_fragment = '{/* %s */}',
-        jsx_attribute = '// %s',
-        comment = '// %s'
-    }
+    enable_autocmd = false,
+    languages = {
+        typescript = '// %s',
+        -- configuration for jsx and tsx
+        javascript = {
+            __default = '// %s',
+            jsx_element = '{/* %s */}',
+            jsx_fragment = '{/* %s */}',
+            jsx_attribute = '// %s',
+            comment = '// %s'
+        }
 
-  },
+    },
 }
 
 require("nvim-treesitter.install").prefer_git = true
@@ -77,3 +77,4 @@ require("nvim-treesitter.install").prefer_git = true
 vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.cmd('autocmd FileType ruby setlocal indentkeys-=.')
+

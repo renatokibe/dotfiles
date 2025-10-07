@@ -34,12 +34,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
-
   " For vsnip users.
   Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/vim-vsnip'
-
-
 
   " neovim winbar
   Plug 'utilyre/barbecue.nvim'
@@ -85,6 +81,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-repeat' " repeat plugin maps with dot as well
   Plug 'tpope/vim-unimpaired'
 
+  " manipulate words throughout text
+  Plug 'tpope/vim-abolish'
+
+  " grab git link from line
+
   " All about surroundings i.e you can change 'a' to [a] using cs'[
   Plug 'tpope/vim-surround'
 
@@ -124,6 +125,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'kana/vim-textobj-user', { 'for': 'ruby' }
   Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
   Plug 'ecomba/vim-ruby-refactoring', { 'for': 'ruby' }
+
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
 
   " Html formatting
   Plug 'tpope/vim-markdown', { 'for': 'html' }
@@ -231,6 +234,8 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'tjdevries/colorbuddy.nvim'
   Plug 'andersevenrud/nordic.nvim'
+  Plug 'sainnhe/everforest'
+  " Plug 'neanias/everforest-nvim', { 'branch': 'main' }
 
   Plug 'folke/todo-comments.nvim'
 
@@ -245,13 +250,20 @@ call plug#begin('~/.vim/plugged')
   " copilot goodies
   " try to lazyload this unless we move to lazy.nvim
   Plug 'zbirenbaum/copilot.lua'
+  Plug 'zbirenbaum/copilot-cmp'
   Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'main' }
 
+  " codecompanion plugins
+  Plug 'olimorris/codecompanion.nvim'
+
+  " markdown rendering
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
 call plug#end()
 
 " VIM EDITOR CONFIG
 let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Play nice with fugitive plugin
 let g:EditorConfig_core_mode = 'external_command' " Use system installed bin
+let g:EditorConfig_exec_path = 'editorconfig'
 
 " VIM SURROUND
 " from: https://github.com/skwp/dotfiles/blob/master/vim/settings/surround.vim
@@ -380,6 +392,9 @@ nnoremap <silent> <leader>le :call localorie#expand_key()<CR>
 " RUBY AND RUBY ON RAILS
 autocmd FileType ruby,eruby,yaml,less set tw=100 shiftwidth=2 softtabstop=2 tabstop=2 expandtab autoindent
 autocmd User Rails set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+
+" lua
+autocmd FileType lua set tw=100 shiftwidth=2 softtabstop=2 tabstop=2 expandtab autoindent
 
 " JAVASCRIPT, TYPESCRIPT, REACT
 let javascript_enable_domhtmlcss = 1
@@ -640,7 +655,7 @@ inoremap <Leader>m <C-O>:set invnumber<CR>
 nnoremap gb :e #<CR>
 
 " Enables fzf in vim
-set rtp+=/usr/bin/fzf
+set rtp+=fzf
 
 " Per project vimrc files
 set exrc " Enable per project vimrc

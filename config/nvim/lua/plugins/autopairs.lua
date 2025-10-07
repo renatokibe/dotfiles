@@ -14,6 +14,3 @@ npairs.setup({
         -- javascript = {'template_string'},
     -- }
 })
-
--- support for languages that closes brackets with end (lua, ruby)
-require("plugins.endwise").setup()

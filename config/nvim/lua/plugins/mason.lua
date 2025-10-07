@@ -14,7 +14,8 @@ function M.setup()
   local options = {
     ensure_installed = {
       'lua_ls', 'omnisharp', 'phpactor', 'ts_ls', 'jdtls', 'dockerls', 'efm', 'solargraph', 'jedi_language_server'
-    }
+    },
+    automatic_enable = false
   }
 
   require("mason-lspconfig").setup(options)
