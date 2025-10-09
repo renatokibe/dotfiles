@@ -27,6 +27,19 @@ autocmd("InsertLeave", {
   command = "set cursorline"
 })
 
+-- Auto change directory to project root using LSP
+-- Replaces vim-rooter plugin with native Neovim functionality
+local lsp_rooter_group = augroup("LspRooter", { clear = true })
+autocmd("LspAttach", {
+  group = lsp_rooter_group,
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.config.root_dir then
+      vim.fn.chdir(client.config.root_dir)
+    end
+  end,
+})
+
 -- Always reload vimrc after save
 local reload_vimrc_group = augroup("ReloadVimrc", { clear = true })
 autocmd("BufWritePost", {

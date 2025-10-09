@@ -24,10 +24,10 @@ if ! zgenom saved; then
     zgenom load agkozak/zsh-z
     zgenom load andrewferrier/fzf-z
     zgenom load u1and0/fzf-extras
-    zgenom load ~/Projects/dotfiles/shell-extensions/fzf
-    zgenom load ~/Projects/dotfiles/shell-extensions/history
+    zgenom load ~/Projects/me/dotfiles/shell-extensions/history
     zgenom load laggardkernel/zsh-tmux # this one might be increasing cpu usage. there's no alternative, so I might just ditch it and test.
     zgenom load wazum/zsh-directory-dot-expansion
+    zgenom load ~/Projects/me/dotfiles/shell-extensions/fzf
     #zgenom load z-shell/zsh-diff-so-fancy
 
     # zsh theme

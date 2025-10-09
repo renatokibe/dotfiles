@@ -1,50 +1,62 @@
 local config = require('lang.config')
 
 local tsserver_config = {
-  root_dir = config.lsp.util.root_pattern("yarn.lock", "lerna.json", ".git"),
+  root_dir = config.lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
   on_attach = function(client, bufnr)
+    -- Disable tsserver formatting, prefer using prettier or eslint
     client.server_capabilities.documentFormattingProvider = false
 
-    local ts_utils = require("nvim-lsp-ts-utils")
-    -- defaults
-    ts_utils.setup {
-        disable_commands = false,
-        debug = false,
-        enable_import_on_completion = false,
-        import_on_completion_timeout = 5000,
-        -- eslint
-        eslint_bin = "eslint_d",
-        eslint_args = {"-f", "json", "--stdin", "--stdin-filename", "$FILENAME"},
-        eslint_enable_disable_comments = true,
-
-        -- experimental settings!
-        -- eslint diagnostics
-        eslint_enable_diagnostics = false,
-        eslint_diagnostics_debounce = 250,
-        -- formatting
-        enable_formatting = false,
-        formatter = "prettier",
-        formatter_args = {"--stdin-filepath", "$FILENAME"},
-        format_on_save = false,
-        no_save_after_format = false,
-        -- parentheses completion
-        complete_parens = false,
-        signature_help_in_parens = false,
-        update_imports_on_move = true,
-        require_confirmation_on_move = true,
-        watch_dir = "./"
-    }
-
-    -- required to enable ESLint code actions and formatting
-    ts_utils.setup_client(client)
     config.default_on_attach(client, bufnr)
 
-    -- no default maps, so you may want to define some here
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", {silent = true})
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "qq", ":TSLspFixCurrent<CR>", {silent = true})
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", {silent = true})
-    vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", {silent = true})
-  end
+    -- TypeScript specific keymaps
+    local opts = { noremap = true, silent = true, buffer = bufnr }
+    vim.keymap.set("n", "gs", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code action" }))
+    vim.keymap.set("n", "gr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename symbol" }))
+
+    -- Organize imports is now built into ts_ls
+    vim.keymap.set("n", "gi", function()
+      vim.lsp.buf.code_action({
+        apply = true,
+        context = {
+          only = { "source.organizeImports" },
+        },
+      })
+    end, vim.tbl_extend("force", opts, { desc = "Organize imports" }))
+
+    -- Add missing imports
+    vim.keymap.set("n", "gI", function()
+      vim.lsp.buf.code_action({
+        apply = true,
+        context = {
+          only = { "source.addMissingImports.ts" },
+        },
+      })
+    end, vim.tbl_extend("force", opts, { desc = "Add missing imports" }))
+  end,
+  settings = {
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      },
+    },
+  },
 }
 
 config.lsp.ts_ls.setup(config.merge(tsserver_config))

@@ -88,22 +88,26 @@ keymap("n", "<Leader>=", "<C-w>=", opts)
 -- Open current file with default app
 keymap("n", "<Leader>o", ":!open %<CR>", { silent = true })
 
--- FZF
-keymap("n", "<C-t>", ":FZF<CR>", { silent = true })
-keymap("n", "<Leader>ct", ":BTags<CR>", opts)
-keymap("n", "<Leader>a", ":Ag ", { noremap = true })
+-- FZF-lua file finding and grep
+keymap("n", "<C-t>", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "Find files" })
+keymap("n", "<Leader>ff", "<cmd>lua require('fzf-lua').files()<CR>", { desc = "Find files" })
+keymap("n", "<Leader>fg", "<cmd>lua require('fzf-lua').git_files()<CR>", { desc = "Git files" })
+keymap("n", "<Leader>fb", "<cmd>lua require('fzf-lua').buffers()<CR>", { desc = "Buffers" })
+keymap("n", "<Leader>fh", "<cmd>lua require('fzf-lua').help_tags()<CR>", { desc = "Help tags" })
+keymap("n", "<Leader>fo", "<cmd>lua require('fzf-lua').oldfiles()<CR>", { desc = "Recent files" })
+keymap("n", "<Leader>fl", "<cmd>lua require('fzf-lua').blines()<CR>", { desc = "Lines in buffer" })
+keymap("n", "<Leader>fL", "<cmd>lua require('fzf-lua').lines()<CR>", { desc = "Lines in open buffers" })
+keymap("n", "<Leader>ft", "<cmd>lua require('fzf-lua').btags()<CR>", { desc = "Buffer tags" })
+keymap("n", "<Leader>fT", "<cmd>lua require('fzf-lua').tags()<CR>", { desc = "Project tags" })
 
--- Ag search word under cursor
-function _G.search_word_with_ag()
-  vim.cmd("Ag " .. vim.fn.expand("<cword>"))
-end
+-- Grep with fzf-lua
+keymap("n", "<Leader>a", "<cmd>lua require('fzf-lua').grep_project()<CR>", { desc = "Grep project" })
+keymap("n", "<Leader>fG", "<cmd>lua require('fzf-lua').live_grep()<CR>", { desc = "Live grep" })
 
-function _G.search_for_usages_of_current_file()
-  vim.cmd("Ag " .. vim.fn.expand("%:t:r"))
-end
-
-keymap("n", "<Leader>aw", ":lua search_word_with_ag()<CR>", opts)
-keymap("n", "<Leader>acf", ":lua search_for_usages_of_current_file()<CR>", opts)
+-- Search word under cursor with fzf-lua
+keymap("n", "<Leader>aw", "<cmd>lua require('fzf-lua').grep_cword()<CR>", { desc = "Grep word under cursor" })
+keymap("v", "<Leader>aw", "<cmd>lua require('fzf-lua').grep_visual()<CR>", { desc = "Grep visual selection" })
+keymap("n", "<Leader>acf", "<cmd>lua require('fzf-lua').grep_project({search=vim.fn.expand('%:t:r')})<CR>", { desc = "Grep current filename" })
 
 -- Vim eunuch
 keymap("n", "<Leader>mv", ":Rename ", { noremap = true })
@@ -152,3 +156,22 @@ if vim.fn.has("nvim") == 1 then
   keymap("t", "<a-d>", "<esc>d", opts)
   keymap("t", "<a-f>", "<esc>f", opts)
 end
+
+-- LSP via fzf-lua
+keymap("n", "<Leader>cs", "<cmd>lua require('fzf-lua').lsp_document_symbols()<CR>", { desc = "Document symbols" })
+keymap("n", "<Leader>cS", "<cmd>lua require('fzf-lua').lsp_workspace_symbols()<CR>", { desc = "Workspace symbols" })
+keymap("n", "<Leader>ca", "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>", { desc = "Code actions" })
+keymap("n", "<Leader>cr", "<cmd>lua require('fzf-lua').lsp_references()<CR>", { desc = "References" })
+keymap("n", "<Leader>cd", "<cmd>lua require('fzf-lua').lsp_definitions()<CR>", { desc = "Definitions" })
+keymap("n", "<Leader>ci", "<cmd>lua require('fzf-lua').lsp_implementations()<CR>", { desc = "Implementations" })
+keymap("n", "<Leader>ct", "<cmd>lua require('fzf-lua').lsp_typedefs()<CR>", { desc = "Type definitions" })
+keymap("n", "<Leader>cD", "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>", { desc = "Document diagnostics" })
+keymap("n", "<Leader>cW", "<cmd>lua require('fzf-lua').lsp_workspace_diagnostics()<CR>", { desc = "Workspace diagnostics" })
+
+-- Trouble.nvim - Diagnostics viewer
+keymap("n", "<Leader>xx", ":Trouble diagnostics toggle<CR>", { desc = "Toggle diagnostics (Trouble)" })
+keymap("n", "<Leader>xX", ":Trouble diagnostics toggle filter.buf=0<CR>", { desc = "Buffer diagnostics (Trouble)" })
+keymap("n", "<Leader>xl", ":Trouble loclist toggle<CR>", { desc = "Location list (Trouble)" })
+keymap("n", "<Leader>xq", ":Trouble qflist toggle<CR>", { desc = "Quickfix list (Trouble)" })
+keymap("n", "<Leader>xs", ":Trouble symbols toggle focus=false<CR>", { desc = "Symbols (Trouble)" })
+keymap("n", "<Leader>xL", ":Trouble lsp toggle focus=false win.position=right<CR>", { desc = "LSP references/definitions (Trouble)" })

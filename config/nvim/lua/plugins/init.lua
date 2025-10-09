@@ -35,21 +35,27 @@ return {
   { "onsails/lspkind-nvim" },
   { "RRethy/vim-illuminate" },
   { "kosayoda/nvim-lightbulb" },
-  { "jose-elias-alvarez/nvim-lsp-ts-utils" },
   { "nvim-lua/plenary.nvim" },
   { "glepnir/lspsaga.nvim" },
-  { "folke/trouble.nvim" },
-  { "gfanto/fzf-lsp.nvim", dependencies = { "junegunn/fzf" } },
+  {
+    "folke/trouble.nvim",
+    config = require("plugins.config.trouble").setup,
+  },
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "kyazdani42/nvim-web-devicons" },
+    config = require("plugins.config.fzf_lua").setup,
+  },
   { "mfussenegger/nvim-jdtls" },
   { "j-hui/fidget.nvim", opts = {} },
 
   -- Git integration
   { "tpope/vim-fugitive" },
   { "tpope/vim-rhubarb" },
-  { "airblade/vim-gitgutter" },
-  { "gregsexton/gitv", dependencies = { "tpope/vim-fugitive" } },
-  { "rhysd/git-messenger.vim" },
-  { "APZelos/blamer.nvim", config = require("plugins.config.blamer").setup },
+  {
+    "lewis6991/gitsigns.nvim",
+    config = require("plugins.config.gitsigns").setup,
+  },
 
   -- Tpope utilities
   { "tpope/vim-repeat" },
@@ -59,12 +65,11 @@ return {
   { "tpope/vim-commentary" },
 
   -- Icons
-  { "ryanoasis/vim-devicons" },
   { "kyazdani42/nvim-web-devicons" },
 
   -- Status line
   {
-    "hoob3rt/lualine.nvim",
+    "nvim-lualine/lualine.nvim",
     config = require("plugins.config.nordevil_lualine").setup,
   },
 
@@ -99,17 +104,13 @@ return {
   -- Language specific
   { "vim-ruby/vim-ruby", ft = "ruby" },
   { "tpope/vim-rails", ft = "ruby" },
-  { "kana/vim-textobj-user", ft = "ruby" },
-  { "nelstrom/vim-textobj-rubyblock", ft = "ruby" },
+  { "kana/vim-textobj-user" },
+  { "nelstrom/vim-textobj-rubyblock", ft = "ruby", dependencies = { "kana/vim-textobj-user" } },
   { "ecomba/vim-ruby-refactoring", ft = "ruby" },
   { "tpope/vim-markdown", ft = "html" },
   { "elzr/vim-json", ft = "json" },
   { "kevinoid/vim-jsonc", ft = { "json", "jsonc" } },
-  { "maxmellon/vim-jsx-pretty" },
-  { "pangloss/vim-javascript" },
   { "othree/html5.vim" },
-  { "HerringtonDarkholme/yats.vim" },
-  { "othree/javascript-libraries-syntax.vim" },
   { "vim-perl/vim-perl", ft = "perl" },
   { "Vimjas/vim-python-pep8-indent", ft = "python" },
   { "vim-python/python-syntax", ft = "python" },
@@ -130,7 +131,6 @@ return {
   { "gioele/vim-autoswap" },
   { "junegunn/goyo.vim", ft = { "markdown", "txt", "text" } },
   { "lambdalisue/suda.vim" },
-  { "liuchengxu/vista.vim" },
 
   -- Treesitter
   {
@@ -144,6 +144,7 @@ return {
   { "RRethy/nvim-treesitter-endwise" },
 
   -- Editing enhancements
+  { "andymass/vim-matchup" }, -- Enhanced % matching with treesitter support
   {
     "windwp/nvim-autopairs",
     config = require("plugins.config.autopairs").setup,
