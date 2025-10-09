@@ -101,3 +101,7 @@
   newHighlight = green bold 22
 [pull]
 	rebase = false
+
+# Use work email for varsitytutors projects
+[includeIf "gitdir:~/Projects/varsitytutors/"]
+	path = ~/.gitconfig-varsitytutors
