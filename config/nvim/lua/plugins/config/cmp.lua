@@ -1,5 +1,8 @@
+local M = {}
+
+M.setup = function()
   -- Set up nvim-cmp.
-  local cmp = require'cmp'
+  local cmp = require('cmp')
   local lsp_kind_format = require('lang.kind')
 
   cmp.setup({
@@ -61,3 +64,6 @@
     }),
     matching = { disallow_symbol_nonprefix_matching = false }
   })
+end
+
+return M

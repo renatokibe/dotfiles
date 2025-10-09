@@ -1,0 +1,22 @@
+local M = {}
+
+M.setup = function()
+  local npairs = require("nvim-autopairs")
+
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  local cmp = require('cmp')
+  cmp.event:on(
+    'confirm_done',
+    cmp_autopairs.on_confirm_done()
+  )
+
+  npairs.setup({
+    check_ts = true,
+    -- ts_config = {
+        -- lua = {'string'},-- it will not add pair on that treesitter node
+        -- javascript = {'template_string'},
+    -- }
+  })
+end
+
+return M

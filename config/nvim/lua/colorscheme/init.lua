@@ -10,7 +10,12 @@ vim.g.nord_italic = 'v:true'
 vim.g.nord_italic_comments = 'v:false'
 vim.g.nord_minimal_mode = 'v:false'
 vim.opt.background="dark"
-vim.cmd('colorscheme nordic')
+
+-- Try to load colorscheme, fallback to default if not installed yet
+local status_ok, _ = pcall(vim.cmd, 'colorscheme nordic')
+if not status_ok then
+  vim.cmd('colorscheme habamax')  -- Fallback to built-in colorscheme
+end
 
 -- colorscheme everforest
 

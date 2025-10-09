@@ -2,8 +2,15 @@
 -- All plugins from vimrc converted to lazy.nvim format
 
 return {
+  -- TESTING: Only colorizer enabled
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = require("plugins.colorizer").setup,
+  },
+
+  --[[ COMMENTED OUT FOR TESTING
   -- LSP and language servers
-  { "williamboman/mason.nvim", config = require("plugins.config.mason").setup },
+  { "williamboman/mason.nvim", config = require("plugins.mason").setup },
   { "williamboman/mason-lspconfig.nvim", dependencies = { "williamboman/mason.nvim" } },
   { "neovim/nvim-lspconfig", dependencies = { "williamboman/mason-lspconfig.nvim" } },
 
@@ -19,7 +26,7 @@ return {
       "hrsh7th/vim-vsnip",
       "zbirenbaum/copilot-cmp",
     },
-    config = require("plugins.config.cmp").setup,
+    config = require("plugins.cmp").setup,
   },
   { "rafamadriz/friendly-snippets" },
   { "wellle/tmux-complete.vim" },
@@ -28,7 +35,7 @@ return {
   {
     "utilyre/barbecue.nvim",
     dependencies = { "SmiteshP/nvim-navic", "kyazdani42/nvim-web-devicons" },
-    config = require("plugins.config.barbecue").setup,
+    config = require("plugins.barbecue").setup,
   },
   { "ray-x/lsp_signature.nvim" },
   { "folke/lsp-colors.nvim" },
@@ -49,7 +56,7 @@ return {
   { "airblade/vim-gitgutter" },
   { "gregsexton/gitv", dependencies = { "tpope/vim-fugitive" } },
   { "rhysd/git-messenger.vim" },
-  { "APZelos/blamer.nvim", config = require("plugins.config.blamer").setup },
+  { "APZelos/blamer.nvim", config = require("plugins.blamer").setup },
 
   -- Tpope utilities
   { "tpope/vim-repeat" },
@@ -65,7 +72,7 @@ return {
   -- Status line
   {
     "hoob3rt/lualine.nvim",
-    config = require("plugins.config.nordevil_lualine").setup,
+    config = require("plugins.nordevil_lualine").setup,
   },
 
   -- Color schemes
@@ -88,10 +95,10 @@ return {
       "MunifTanjim/nui.nvim",
       "s1n7ax/nvim-window-picker",
     },
-    config = require("plugins.config.neo_tree").setup,
+    config = require("plugins.neo_tree").setup,
   },
   { "MunifTanjim/nui.nvim" },
-  { "s1n7ax/nvim-window-picker", config = require("plugins.config.window_picker").setup },
+  { "s1n7ax/nvim-window-picker", config = require("plugins.window_picker").setup },
 
   -- Tmux integration
   { "christoomey/vim-tmux-navigator" },
@@ -136,7 +143,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = require("plugins.config.treesitter").setup,
+    config = require("plugins.treesitter").setup,
   },
   { "nvim-treesitter/playground" },
   { "JoosepAlviste/nvim-ts-context-commentstring" },
@@ -146,21 +153,21 @@ return {
   -- Editing enhancements
   {
     "windwp/nvim-autopairs",
-    config = require("plugins.config.autopairs").setup,
+    config = require("plugins.autopairs").setup,
   },
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    config = require("plugins.config.indent_blankline").setup,
+    config = require("plugins.indent_blankline").setup,
   },
   {
     "norcalli/nvim-colorizer.lua",
-    config = require("plugins.config.colorizer").setup,
+    config = require("plugins.colorizer").setup,
   },
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = require("plugins.config.todo_comments").setup,
+    config = require("plugins.todo_comments").setup,
   },
 
   -- Debug Adapter Protocol
@@ -171,22 +178,23 @@ return {
   -- AI assistance
   {
     "zbirenbaum/copilot.lua",
-    config = require("plugins.config.copilot").setup,
+    config = require("plugins.copilot").setup,
   },
   { "zbirenbaum/copilot-cmp" },
   { "CopilotC-Nvim/CopilotChat.nvim", branch = "main" },
   {
     "olimorris/codecompanion.nvim",
-    config = require("plugins.config.codecompanion").setup,
+    config = require("plugins.codecompanion").setup,
   },
 
   -- Markdown rendering
   {
     "MeanderingProgrammer/render-markdown.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    config = require("plugins.config.render_markdown").setup,
+    config = require("plugins.render_markdown").setup,
   },
 
   -- HTML utilities
   { "mattn/emmet-vim" },
+  --]]
 }
