@@ -102,8 +102,23 @@ M.setup = function()
       git_icons = true,
       file_icons = true,
       color_icons = true,
+      -- Two-phase: search once, then fuzzy filter results
+      rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
       winopts = {
-        title = " 🔍 Grep ",
+        title = " 🔍 Grep (Two-Phase) ",
+        title_pos = "center",
+      },
+    },
+    live_grep = {
+      prompt = " Live Grep❯ ",
+      input_prompt = " Search For❯ ",
+      multiprocess = true,
+      git_icons = true,
+      file_icons = true,
+      color_icons = true,
+      -- Interactive: updates as you type
+      winopts = {
+        title = " 🔍 Live Grep ",
         title_pos = "center",
       },
     },

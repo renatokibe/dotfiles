@@ -101,8 +101,9 @@ keymap("n", "<Leader>ft", "<cmd>lua require('fzf-lua').btags()<CR>", { desc = "B
 keymap("n", "<Leader>fT", "<cmd>lua require('fzf-lua').tags()<CR>", { desc = "Project tags" })
 
 -- Grep with fzf-lua
-keymap("n", "<Leader>a", "<cmd>lua require('fzf-lua').grep_project()<CR>", { desc = "Grep project" })
-keymap("n", "<Leader>fG", "<cmd>lua require('fzf-lua').live_grep()<CR>", { desc = "Live grep" })
+keymap("n", "<Leader>a", "<cmd>lua require('fzf-lua').grep()<CR>", { desc = "Grep (two-phase: prompt then fuzzy)" })
+keymap("n", "<Leader>A", "<cmd>lua require('fzf-lua').grep_project()<CR>", { desc = "Grep project (resume last search)" })
+keymap("n", "<Leader>fG", "<cmd>lua require('fzf-lua').live_grep()<CR>", { desc = "Live grep (interactive)" })
 
 -- Search word under cursor with fzf-lua
 keymap("n", "<Leader>aw", "<cmd>lua require('fzf-lua').grep_cword()<CR>", { desc = "Grep word under cursor" })

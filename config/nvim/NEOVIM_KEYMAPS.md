@@ -46,8 +46,9 @@ This document lists custom keymaps added to the Neovim configuration. All keymap
 - `<Leader>fT` - Project tags (all files)
 
 ### Grep/Search
-- `<Leader>a` - Grep project (prompt for search term)
-- `<Leader>fG` - Live grep (interactive)
+- `<Leader>a` - Grep (two-phase: prompt once, then fuzzy filter results - like old Ag)
+- `<Leader>A` - Grep project (resume last search)
+- `<Leader>fG` - Live grep (interactive - updates as you type)
 - `<Leader>aw` - Grep word under cursor (also works in visual mode)
 - `<Leader>acf` - Grep current filename
 
@@ -112,8 +113,12 @@ While in any fzf-lua picker:
 1. `<C-t>` - Quick file search
 2. `<Leader>fg` - Search only git-tracked files
 3. `<Leader>aw` - Search for word under cursor
-4. `<Leader>a` - Custom search in project
-5. `<Leader>fG` - Live grep with real-time results
+4. `<Leader>a` - Two-phase search (type pattern, press Enter, then fuzzy filter ALL results with hjkl)
+5. `<Leader>fG` - Live grep (results update as you type - no fuzzy filtering)
+
+**Two-Phase vs Live Grep:**
+- **Two-phase** (`<Leader>a`): Type "function", press Enter → see ALL matches → fuzzy filter with "foo" → navigate with hjkl
+- **Live grep** (`<Leader>fG`): Type "function foo" → only see matches for "function foo" → navigate with hjkl
 
 ## Other Keymaps
 

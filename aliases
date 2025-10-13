@@ -16,9 +16,6 @@ alias mkdir="mkdir -p"
 # ls more organized
 alias ls='ls --color -GFhla'
 
-# alias hub as git
-eval "$(hub alias -s)"
-
 #tmux helpers
 alias tmuxkw='tmux kill-window -t'
 alias tmuxkp='tmux kill-pane -t'
