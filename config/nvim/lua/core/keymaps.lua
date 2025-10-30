@@ -24,8 +24,9 @@ keymap("n", "<Down>", ':echoe "Use j"<CR>', opts)
 keymap("n", "Y", "y$", opts)
 
 -- Yank to system clipboard
-keymap("v", "<Leader>yo", '"+y', opts)
-keymap("n", "<Leader>po", '"+p', opts)
+keymap("n", "<Leader>y", '"+y', opts)
+keymap("v", "<Leader>y", '"+y', opts)
+keymap("n", "<Leader>p", '"+p', opts)
 
 -- Tab navigation
 keymap("n", "<Leader>tp", ":tabprevious<CR>", opts)
