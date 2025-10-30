@@ -74,8 +74,8 @@ M.setup = function()
         ["<cr>"] = "open",
         ["<esc>"] = "revert_preview",
         ["P"] = { "toggle_preview", config = { use_float = true } },
-        ["<C-x>"] = "open_split",
-        ["<C-v>"] = "open_vsplit",
+        ["<C-h>"] = "open_vsplit",  -- h = horizontal arrangement (side by side)
+        ["<C-v>"] = "open_split",   -- v = vertical arrangement (top and bottom)
         -- ["S"] = "split_with_window_picker",
         -- ["s"] = "vsplit_with_window_picker",
         ["t"] = "open_tabnew",

@@ -76,6 +76,13 @@ M.setup = function()
         ["ctrl-q"] = "select-all+accept",
       },
     },
+    -- Override default split actions to match our h/v convention
+    actions = {
+      files = {
+        ["ctrl-h"] = require("fzf-lua.actions").file_vsplit,  -- h = horizontal arrangement (side by side)
+        ["ctrl-v"] = require("fzf-lua.actions").file_split,   -- v = vertical arrangement (top and bottom)
+      },
+    },
     previewers = {
       builtin = {
         syntax = true,

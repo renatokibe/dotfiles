@@ -36,9 +36,9 @@ keymap("n", "<Leader>bp", ":bprevious<CR>", opts)
 keymap("n", "<Leader>bn", ":bnext<CR>", opts)
 keymap("n", "gb", ":e #<CR>", opts)
 
--- Splits
-keymap("n", "<Leader>sv", "<C-w>v<C-w>l", opts)
-keymap("n", "<Leader>sh", "<C-w>s<C-w>j", opts)
+-- Splits (h = horizontal arrangement/side by side, v = vertical arrangement/top-bottom)
+keymap("n", "<Leader>sh", "<C-w>v<C-w>l", opts)  -- horizontal arrangement (side by side)
+keymap("n", "<Leader>sv", "<C-w>s<C-w>j", opts)  -- vertical arrangement (top and bottom)
 
 -- Quickly edit config files
 keymap("n", "<Leader>ev", "<C-w>s<C-w>j:e $MYVIMRC<CR>", opts)
