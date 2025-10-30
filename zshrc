@@ -17,3 +17,7 @@ fi
 
 # source ${HOME}/.zshrc.zplug
 source ${HOME}/.zshrc.zgenom
+
+# Initialize Starship prompt (replaces clean theme)
+# Config: ~/.config/starship.toml
+eval "$(starship init zsh)"

@@ -1,1 +1,1 @@
-DOTFILES_DIRS="$HOME/Projects/me/dotfiles $HOME/dotfiles $HOME/Projects/dotfiles"
+DOTFILES_DIRS="${DOTFILES_DIR:-$HOME/Projects/me/dotfiles}"

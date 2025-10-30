@@ -68,5 +68,8 @@ if [ -x "$(command -v nvim)" ]; then
     alias vim=nvim
 fi
 
+# Reload zsh config with zgenom reset
+alias reloadzsh='zgenom reset && source ~/.zshrc'
+
 # Include local aliases that you don't want exposed online
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

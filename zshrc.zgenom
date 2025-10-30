@@ -6,10 +6,6 @@ fi
 # load zgenom
 source "${HOME}/.zgenom/zgenom.zsh"
 
-# Check for plugin and zgenom updates every 7 days
-# This does not increase the startup time.
-zgenom autoupdate
-
 # if the init script doesn't exist
 if ! zgenom saved; then
     echo "Creating a zgenom save"
@@ -20,22 +16,17 @@ if ! zgenom saved; then
     zgenom load wfxr/forgit
     zgenom load clarketm/zsh-completions
     zgenom load zdharma-continuum/fast-syntax-highlighting
-    # Alternative if fast-syntax-highlighting causes CPU issues:
-    # zgenom load zsh-users/zsh-syntax-highlighting
     zgenom load b4b4r07/emoji-cli
-    # zgenom load agkozak/zsh-z  # Replaced with zoxide (faster, no CPU overhead)
-    # zgenom load andrewferrier/fzf-z  # Replaced with zoxide (has built-in fzf integration)
     zgenom load u1and0/fzf-extras
-    zgenom load ~/Projects/me/dotfiles/shell-extensions/history
-    # zgenom load laggardkernel/zsh-tmux # Replaced with lightweight auto-start below
+    zgenom load $DOTFILES_DIR/shell-extensions/history
+    zgenom load $DOTFILES_DIR/shell-extensions/zsh-tmux
+    zgenom load $DOTFILES_DIR/shell-extensions/fzf
     zgenom load wazum/zsh-directory-dot-expansion
-    zgenom load ~/Projects/me/dotfiles/shell-extensions/fzf
-    #zgenom load z-shell/zsh-diff-so-fancy
+    zgenom load z-shell/zsh-diff-so-fancy
 
     # zsh theme
-    zgenom load akz92/clean clean
-    #zgenom load spaceship-prompt/spaceship-prompt spaceship
-    #zgenom load agkozak/agkozak-zsh-prompt
+    # Switched to Starship for better performance and safety (no hanging git status)
+    # Configuration in ~/.config/starship.toml
 
     # add binaries
     # zgenom bin tj/git-extras
@@ -45,27 +36,4 @@ if ! zgenom saved; then
 
     # Compile your zsh files
     zgenom compile "$HOME/.zshrc"
-fi
-
-# Initialize zoxide (replaces zsh-z and fzf-z plugins)
-if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh)"
-
-  # Bind Ctrl+G to zoxide interactive mode (replaces fzf-z)
-  function __zoxide_zi_widget() {
-    local result=$(zoxide query -i)
-    if [ -n "$result" ]; then
-      cd "$result"
-    fi
-    zle reset-prompt
-    zle redisplay
-  }
-  zle -N __zoxide_zi_widget
-  bindkey '^g' __zoxide_zi_widget
-fi
-
-# Auto-start tmux (replaces laggardkernel/zsh-tmux plugin)
-if command -v tmux &> /dev/null && [ -z "$TMUX" ] && [ -z "$INSIDE_EMACS" ] && [ -z "$VSCODE_INJECTION" ]; then
-  # Attach to kibe-b1ec9 session or create it
-  tmux attach -t kibe-b1ec9 2>/dev/null || tmux new -s kibe-b1ec9
 fi
