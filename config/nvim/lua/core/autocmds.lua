@@ -233,14 +233,29 @@ autocmd({ "FocusLost", "VimResized" }, {
 })
 
 -- Share data between neovim instances (registers etc) using shada
+-- Only sync on focus loss to avoid excessive writes and temp file buildup
 local shada_group = augroup("SHADA", { clear = true })
-autocmd({ "CursorHold", "TextYankPost", "FocusGained", "FocusLost" }, {
+autocmd({ "FocusLost" }, {
   group = shada_group,
   pattern = "*",
   callback = function()
     if vim.fn.exists(":rshada") == 2 then
-      vim.cmd("rshada")
-      vim.cmd("wshada")
+      pcall(function()
+        vim.cmd("wshada")
+      end)
+    end
+  end
+})
+
+-- Read shared data when gaining focus
+autocmd({ "FocusGained" }, {
+  group = shada_group,
+  pattern = "*",
+  callback = function()
+    if vim.fn.exists(":rshada") == 2 then
+      pcall(function()
+        vim.cmd("rshada")
+      end)
     end
   end
 })
