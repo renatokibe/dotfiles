@@ -25,7 +25,7 @@ local languages = {
 }
 
 local efm_config = {
-    root_dir = config.lsp.util.root_pattern("yarn.lock", "lerna.json", ".git"),
+    root_markers = {"yarn.lock", "lerna.json", ".git"},
     filetypes = vim.tbl_keys(languages),
     init_options = {documentFormatting = true, codeAction = true},
     settings = {languages = languages, log_level = 1, log_file = '~/efm.log'},
@@ -38,4 +38,4 @@ local efm_config = {
     end
 }
 
-config.lsp.efm.setup(config.merge(efm_config))
+config.setup('efm', efm_config)

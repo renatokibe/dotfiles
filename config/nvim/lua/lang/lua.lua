@@ -1,7 +1,6 @@
 local config = require('lang.config')
 
-local lua_lsp_config ={
-    -- available in path (installed through arch package manager)
+local lua_lsp_config = {
     on_attach = function(client, bufnr)
         client.server_capabilities.documentFormattingProvider = false
         config.default_on_attach(client, bufnr)
@@ -31,4 +30,4 @@ local lua_lsp_config ={
     }
 }
 
-config.lsp.lua_ls.setup(config.merge(lua_lsp_config))
+config.setup('lua_ls', lua_lsp_config)

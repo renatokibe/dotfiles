@@ -1,7 +1,7 @@
 local config = require('lang.config')
 
 local tsserver_config = {
-  root_dir = config.lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+  root_markers = {"package.json", "tsconfig.json", "jsconfig.json", ".git"},
   on_attach = function(client, bufnr)
     -- Disable tsserver formatting, prefer using prettier or eslint
     client.server_capabilities.documentFormattingProvider = false
@@ -59,4 +59,4 @@ local tsserver_config = {
   },
 }
 
-config.lsp.ts_ls.setup(config.merge(tsserver_config))
+config.setup('ts_ls', tsserver_config)

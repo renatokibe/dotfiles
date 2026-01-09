@@ -1,17 +1,9 @@
 local config = require('lang.config')
 
-local Solargraph = {
-  config = {
-
-  }
-}
-local M = {
-  config = {
-  }
-}
+local M = {}
 
 function M.setup()
-  config.lsp.solargraph.setup(config.default_lsp)
+  config.setup('solargraph', {})
 end
 
 return M
