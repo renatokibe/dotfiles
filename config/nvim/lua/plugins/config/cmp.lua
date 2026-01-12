@@ -5,6 +5,14 @@ M.setup = function()
   local cmp = require('cmp')
   local lsp_kind_format = require('lang.kind')
 
+  -- Configure copilot-cmp with safe formatting
+  local has_copilot_cmp, copilot_cmp = pcall(require, "copilot_cmp")
+  if has_copilot_cmp then
+    copilot_cmp.setup({
+      fix_pairs = true,
+    })
+  end
+
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine
@@ -12,24 +20,61 @@ M.setup = function()
         vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
       end,
     },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
+    -- window = {
+    --   completion = {
+    --     winhighlight = 'Normal:CmpPmenu,CursorLine:PmenuSel,Search:None',
+    --   },
+    --   documentation = {
+    --     winhighlight = 'Normal:CmpPmenu',
+    --   },
+    -- },
+    -- Preselect first item to show documentation immediately
+    preselect = cmp.PreselectMode.Item,
+    completion = {
+      completeopt = 'menu,menuone,noinsert',
     },
+    -- Experimental: show ghost text for first suggestion
+    -- experimental = {
+    --   ghost_text = {
+    --     hl_group = "comment",
+    --   },
+    -- },
+    -- experimental = {
+    --   -- only show ghost text when we show ai completions
+    --   ghost_text = vim.g.ai_cmp and {
+    --     hl_group = "CmpGhostText",
+    --   } or false,
+    -- },
     mapping = cmp.mapping.preset.insert({
       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      -- Tab to select next item
+      ['<Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end, { 'i', 's' }),
+      -- Shift-Tab to select previous item
+      ['<S-Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end, { 'i', 's' }),
     }),
     sources = cmp.config.sources({
-      { name = "copilot", group_index = 2 },
-      { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      { name = 'render-markdown' },
+      { name = "copilot", group_index = 2, max_item_count = 3 },
+      { name = 'nvim_lsp', max_item_count = 20 },
+      { name = 'vsnip', max_item_count = 5 }, -- For vsnip users.
+      { name = 'render-markdown', max_item_count = 5 },
     }, {
-      { name = 'buffer' },
+      { name = 'buffer', max_item_count = 5 },
     }),
 
     formatting = { format = lsp_kind_format }

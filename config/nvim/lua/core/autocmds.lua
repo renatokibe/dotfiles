@@ -152,7 +152,7 @@ autocmd("FileType", {
 local js_group = augroup("JavaScriptSettings", { clear = true })
 autocmd("FileType", {
   group = js_group,
-  pattern = { "javascript", "typescript", "typescriptreact", "javascriptreact" },
+  pattern = { "javascript", "typescript", "typescriptreact", "javascriptreact", "json" },
   callback = function()
     vim.opt_local.textwidth = 100
     vim.opt_local.shiftwidth = 2
@@ -262,3 +262,44 @@ autocmd({ "FocusGained" }, {
 
 -- Highlight VCS conflict markers
 vim.fn.matchadd("ErrorMsg", [[^\(<\|=\|>\)\{7\}\([^=].\+\)\?$]])
+
+-- Setup custom highlight groups for completion menu
+local cmp_highlights_group = augroup("CmpHighlights", { clear = true })
+autocmd("ColorScheme", {
+  group = cmp_highlights_group,
+  pattern = "*",
+  callback = function()
+    -- Custom highlight for Copilot items (cyan/teal color to stand out)
+    vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644", bg = "NONE", bold = true })
+
+    -- Get current Pmenu background and make it slightly darker
+    local pmenu = vim.api.nvim_get_hl(0, { name = "Pmenu" })
+    local bg = pmenu.bg
+    if bg then
+      -- Darken by reducing RGB values by ~10%
+      local r = math.floor((bit.rshift(bg, 16) % 256) * 0.9)
+      local g = math.floor((bit.rshift(bg, 8) % 256) * 0.9)
+      local b = math.floor((bg % 256) * 0.9)
+      local darker_bg = bit.lshift(r, 16) + bit.lshift(g, 8) + b
+      vim.api.nvim_set_hl(0, "CmpPmenu", { bg = string.format("#%06x", darker_bg), fg = pmenu.fg })
+    else
+      -- Fallback to a slightly darker default
+      vim.api.nvim_set_hl(0, "CmpPmenu", { bg = "#1c1c1c", fg = pmenu.fg })
+    end
+  end
+})
+
+-- Apply highlights immediately on startup
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644", bg = "NONE", bold = true })
+-- Set initial CmpPmenu
+local pmenu = vim.api.nvim_get_hl(0, { name = "Pmenu" })
+if pmenu.bg then
+  local bg = pmenu.bg
+  local r = math.floor((bit.rshift(bg, 16) % 256) * 0.9)
+  local g = math.floor((bit.rshift(bg, 8) % 256) * 0.9)
+  local b = math.floor((bg % 256) * 0.9)
+  local darker_bg = bit.lshift(r, 16) + bit.lshift(g, 8) + b
+  vim.api.nvim_set_hl(0, "CmpPmenu", { bg = string.format("#%06x", darker_bg), fg = pmenu.fg })
+else
+  vim.api.nvim_set_hl(0, "CmpPmenu", { bg = "#1c1c1c", fg = pmenu.fg })
+end

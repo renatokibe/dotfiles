@@ -18,7 +18,7 @@ M.setup = function ()
             },
         },
         suggestion = {
-            enabled = false, -- disable in favor of using it as a source for nvim-cmp
+            enabled = false,
             auto_trigger = false,
             debounce = 75,
             keymap = {
@@ -44,7 +44,6 @@ M.setup = function ()
         copilot_node_command = 'node', -- Node.js version must be > 18.x
         server_opts_overrides = {},
     })
-  require("copilot_cmp").setup()
 end
 
 return M
