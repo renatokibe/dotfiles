@@ -131,6 +131,7 @@ return {
   { "gioele/vim-autoswap" },
   { "junegunn/goyo.vim", ft = { "markdown", "txt", "text" } },
   { "lambdalisue/suda.vim" },
+  { "ellisonleao/dotenv.nvim", config = require("plugins.config.dotenv").setup },
 
   -- Treesitter
   {
@@ -168,6 +169,11 @@ return {
   { "mfussenegger/nvim-dap" },
   { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
   { "theHamsta/nvim-dap-virtual-text" },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+    config = require("plugins.config.mason_dap").setup,
+  },
 
   -- AI assistance
   {

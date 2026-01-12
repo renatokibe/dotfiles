@@ -13,7 +13,7 @@ function M.setup()
 
   local options = {
     ensure_installed = {
-      'lua_ls', 'omnisharp', 'phpactor', 'ts_ls', 'jdtls', 'dockerls', 'efm', 'solargraph', 'jedi_language_server'
+      'lua_ls', 'omnisharp', 'phpactor', 'ts_ls', 'jdtls', 'dockerls', 'efm', 'solargraph', 'jedi_language_server', 'gopls'
     },
     automatic_enable = false
   }

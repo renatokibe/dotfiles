@@ -28,6 +28,13 @@ keymap("n", "<Leader>y", '"+y', opts)
 keymap("v", "<Leader>y", '"+y', opts)
 keymap("n", "<Leader>p", '"+p', opts)
 
+-- Yank current file relative path to system clipboard
+keymap("n", "<Leader>yf", function()
+  local path = vim.fn.expand('%:.')
+  vim.fn.setreg('+', path)
+  print('Yanked: ' .. path)
+end, { noremap = true, silent = false, desc = "Yank relative file path" })
+
 -- Tab navigation
 keymap("n", "<Leader>tp", ":tabprevious<CR>", opts)
 keymap("n", "<Leader>tn", ":tabnext<CR>", opts)
@@ -128,9 +135,10 @@ keymap("n", "<Leader>f", ":Goyo<CR>", opts)
 keymap("n", "<Leader>lt", ":lua require('localorie').translate()<CR>", opts)
 keymap("n", "<Leader>le", ":lua require('localorie').expand_key()<CR>", opts)
 
--- Vim Plug
-keymap("n", "<Leader>pi", ":PlugInstall<CR>", opts)
-keymap("n", "<Leader>pu", ":PlugUpdate<CR>", opts)
+-- Lazy.nvim plugin manager
+keymap("n", "<Leader>pi", ":Lazy install<CR>", opts)
+keymap("n", "<Leader>pu", ":Lazy update<CR>", opts)
+keymap("n", "<Leader>ps", ":Lazy sync<CR>", opts)
 
 -- Fugitive
 keymap("n", "<Leader>gst", ":Gstatus<CR>", opts)
@@ -177,3 +185,29 @@ keymap("n", "<Leader>xl", ":Trouble loclist toggle<CR>", { desc = "Location list
 keymap("n", "<Leader>xq", ":Trouble qflist toggle<CR>", { desc = "Quickfix list (Trouble)" })
 keymap("n", "<Leader>xs", ":Trouble symbols toggle focus=false<CR>", { desc = "Symbols (Trouble)" })
 keymap("n", "<Leader>xL", ":Trouble lsp toggle focus=false win.position=right<CR>", { desc = "LSP references/definitions (Trouble)" })
+
+-- DAP (Debug Adapter Protocol) keymaps
+keymap("n", "<Leader>db", ":DapToggleBreakpoint<CR>", vim.tbl_extend("force", opts, { desc = "Toggle breakpoint" }))
+keymap("n", "<Leader>dB", function()
+  require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
+end, vim.tbl_extend("force", opts, { desc = "Conditional breakpoint" }))
+keymap("n", "<Leader>dc", ":DapContinue<CR>", vim.tbl_extend("force", opts, { desc = "Continue" }))
+keymap("n", "<Leader>dC", function()
+  require("dap").run_to_cursor()
+end, vim.tbl_extend("force", opts, { desc = "Run to cursor" }))
+keymap("n", "<Leader>di", ":DapStepInto<CR>", vim.tbl_extend("force", opts, { desc = "Step into" }))
+keymap("n", "<Leader>do", ":DapStepOver<CR>", vim.tbl_extend("force", opts, { desc = "Step over" }))
+keymap("n", "<Leader>dO", ":DapStepOut<CR>", vim.tbl_extend("force", opts, { desc = "Step out" }))
+keymap("n", "<Leader>dr", function()
+  require("dapui").toggle()
+end, vim.tbl_extend("force", opts, { desc = "Toggle DAP UI" }))
+keymap("n", "<Leader>dt", ":DapTerminate<CR>", vim.tbl_extend("force", opts, { desc = "Terminate" }))
+keymap("n", "<Leader>dh", function()
+  require("dap.ui.widgets").hover()
+end, vim.tbl_extend("force", opts, { desc = "Hover" }))
+keymap("n", "<Leader>dp", function()
+  require("dap.ui.widgets").preview()
+end, vim.tbl_extend("force", opts, { desc = "Preview" }))
+keymap("n", "<Leader>dR", function()
+  require("dap").repl.open()
+end, vim.tbl_extend("force", opts, { desc = "Open REPL" }))

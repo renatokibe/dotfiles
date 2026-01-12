@@ -1,2 +1,6 @@
 require("lang.debuggers.dap").setup()
 require("lang.debuggers.ui").setup()
+require("lang.debuggers.ruby").setup()
+require("lang.debuggers.python").setup()
+require("lang.debuggers.node").setup()
+require("lang.debuggers.go").setup()
