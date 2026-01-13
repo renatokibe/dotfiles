@@ -79,6 +79,7 @@ M.setup = function()
     -- Override default split actions to match our h/v convention
     actions = {
       files = {
+        ["default"] = require("fzf-lua.actions").file_edit,   -- Enter to open in current window
         ["ctrl-h"] = require("fzf-lua.actions").file_vsplit,  -- h = horizontal arrangement (side by side)
         ["ctrl-v"] = require("fzf-lua.actions").file_split,   -- v = vertical arrangement (top and bottom)
       },

@@ -56,3 +56,5 @@ Thumbs.db
 node_modules/
 
 .vimrc
+
+.local_plans/
