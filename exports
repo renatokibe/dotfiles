@@ -1,5 +1,5 @@
 # Set output colors
-export GREP_COLOR="4;33"
+export GREP_COLORS="mt=4;33"
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
@@ -10,7 +10,7 @@ export EDITOR='nvim'
 export ES_MIN_MEM=1024m
 export ES_MAX_MEM=2048m
 
-# Explictly setting locale cause sometimes osx doesn't
+# Explicitly setting locale cause sometimes osx doesn't
 export LC_ALL=en_US.UTF-8
 
 # RUBY PERFS
@@ -23,15 +23,12 @@ export RUBY_GC_MALLOC_LIMIT=79000000
 # Project DIR
 export PROJECT_DIR="$HOME/Projects"
 
-# do not load global  packages for python virtualenvs
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS="--no-site-packages"
-
 # cpan
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+export PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
+export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
 # brew
 HOMEBREW_NO_AUTO_UPDATE=1
@@ -45,18 +42,9 @@ export TMUX_AUTOSTART_SESSION="${TMUX_AUTOSTART_SESSION:-kibe-b1ec9}"
 # Starship - prevent zle-keymap-select wrapping to avoid infinite recursion
 export STARSHIP_NO_WRAP_KEYMAP=1
 
-export TERM=xterm-256color
-
-export CHROME_EXECUTABLE='google-chrome-stable'
-
-export QT_QPA_PLATFORM=wayland
-
 # pyenv - lazy loaded for performance
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init - --no-rehash)"
 fi
-
-# Include local exports that you don't want exposed online
-[[ -f ~/.exports.local ]] && source ~/.exports.local

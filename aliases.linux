@@ -1,0 +1,6 @@
+alias google-chrome='google-chrome-stable'
+
+# convert pip packages to aur
+alias pypi2pkgbuild.py='PKGEXT=.pkg.tar pypi2pkgbuild.py -g cython -b /tmp/pypi2pkgbuild/ -f'
+
+alias open_expo_developer_menu='adb shell input keyevent 82'

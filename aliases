@@ -1,6 +1,3 @@
-# cask
-alias cask='brew cask'
-
 alias hi="clear"
 
 # cleanup ds_store files
@@ -23,37 +20,30 @@ alias tmuxks='tmux kill-session -t'
 
 alias extract='unarchive'
 
-alias k='k --no-vcs --human'
-alias ka='k --all'
-
 # Short for docker
 dk () {
-  docker $@
+  docker "$@"
 }
 
 dkcrun() {
-  docker-compose run $@
+  docker compose run "$@"
 }
 
 dce() {
-  docker-compose exec $@
+  docker compose exec "$@"
 }
 
 dkc() {
-    docker-compose $@
+  docker compose "$@"
 }
 
-alias dcup='docker-compose up'
-alias dcupd='docker-compose up -d'
-
-# convert pip packags to aur
-alias pypi2pkgbuild.py='PKGEXT=.pkg.tar pypi2pkgbuild.py -g cython -b /tmp/pypi2pkgbuild/ -f'
-
-alias open_expo_developer_menu='adb shell input keyevent 82'
+alias dcup='docker compose up'
+alias dcupd='docker compose up -d'
 
 # get the current tmux layout
 alias tmux_layout='tmux list-windows -F "#{window_active} #{window_layout}" | grep "^1" | cut -d " " -f 2'
 
+# eza (modern ls replacement)
 alias eza='eza --group-directories-first --icons'
 alias ezo='eza --group-directories-first --icons --octal-permissions'
 alias ezala='eza -la'
@@ -61,8 +51,6 @@ alias k='eza'
 alias kla='ezala'
 
 alias docker_stop_all='docker stop $(docker ps -a -q)'
-
-alias google-chrome='google-chrome-stable'
 
 if [ -x "$(command -v nvim)" ]; then
     alias vim=nvim
@@ -73,6 +61,3 @@ alias reloadzsh='zgenom reset && source ~/.zshrc'
 
 # Sync dotfiles with rcup
 alias rcupd='rcup -d $HOME/Projects/me/dotfiles'
-
-# Include local aliases that you don't want exposed online
-[[ -f ~/.aliases.local ]] && source ~/.aliases.local

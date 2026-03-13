@@ -9,33 +9,22 @@ export PATH="$PATH:$LOCAL_NPM_PACKAGES/bin"
 # include the above packages man files
 # Preserve MANPATH if you already defined it somewhere in your config.
 # Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
-export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
+export MANPATH="${MANPATH-$(manpath)}:$LOCAL_NPM_PACKAGES/share/man"
 
 # rbenv installation
 PATH="$HOME/.rbenv/bin:$PATH"
 if commandExists rbenv; then
-  eval "$(rbenv init -)"
+  eval "$(rbenv init - --no-rehash)"
   PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 fi
 
-# virtualenv installation
+# coreutils (use brew prefix if available)
 if commandExists brew; then
-  if [[ -r $(brew --prefix)/bin/virtualenvwrapper.sh ]]; then
-      source $(brew --prefix)/bin/virtualenvwrapper.sh
-  fi
-
-  export VIRTUALENVWRAPPER_VIRTUALENV=$(brew --prefix)/bin/virtualenv
-
-  # Enable virtualenvwrapper
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PIP_RESPECT_VIRTUALENV=true
-  export PIP_VIRTUALENV_BASE=$WORKON_HOME
-
-  export VIRTUALENVWRAPPER_PYTHON=$(brew --prefix)/bin/python
+  _brew_prefix=$(brew --prefix)
+  PATH="$_brew_prefix/opt/coreutils/libexec/gnubin:$PATH"
+  MANPATH="$_brew_prefix/opt/coreutils/libexec/gnuman:$MANPATH"
+  unset _brew_prefix
 fi
 
-# ruby gems
-export PATH="$PATH:$GEM_HOME/bin"
-
-PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+# claude code
+export PATH="$HOME/.local/bin:$PATH"

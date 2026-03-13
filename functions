@@ -1,11 +1,9 @@
 getMyIP() {
-    local _ip _myip _line _nl=$'\n'
-    while IFS=$': \t' read -a _line ;do
-        [ -z "${_line%inet}" ] &&
-           _ip=${_line[${#_line[1]}>4?1:2]} &&
-           [ "${_ip#127.0.0.1}" ] && _myip=$_ip
-      done< <(LANG=C /sbin/ifconfig)
-    printf ${1+-v} $1 "%s${_nl:0:$[${#1}>0?0:1]}" $_myip
+  if is_osx; then
+    ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null
+  else
+    ip -4 addr show scope global | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | head -1
+  fi
 }
 
 commandExists() {
@@ -16,30 +14,28 @@ is_osx () { [[ $OSTYPE == darwin* ]]; }
 is_linux () { [[ $OSTYPE == linux* ]]; }
 
 # tmux
-() {
-  tmh() {
-    tmux split-window -h "exec $*"
-  }
+tmh() {
+  tmux split-window -h "exec $*"
+}
 
-  tmv() {
-    tmux split-window -v "exec $*"
-  }
+tmv() {
+  tmux split-window -v "exec $*"
+}
 
-  tmssh() {
-    tmux new-window -n $@ "exec ssh $@"
-  }
+tmssh() {
+  tmux new-window -n "$@" "exec ssh $@"
 }
 
 change_laptop_setting() {
-  echo $1 | sudo tee $2
-}
-
-change_laptop_battery_charge_limit() {
-  echo $1 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold
+  echo "$1" | sudo tee "$2"
 }
 
 shacopy() {
+  if is_osx; then
+    shasum "$@" | awk '{ print $1 }' | tr -d '\n' | pbcopy
+  else
     shasum "$@" | awk '{ print $1 }' | tr -d '\n' | xsel --clipboard --input
+  fi
 }
 
 sha256copy() {
@@ -54,5 +50,66 @@ zsh_startup_time() {
     /usr/bin/time /bin/zsh -i -c exit
 }
 
-# Include local aliases that you don't want exposed online
-[[ -f ~/.functions.local ]] && source ~/.functions.local
+# Source OS-specific configuration files
+# Usage: source_os_specific <base_filename>
+# Example: source_os_specific aliases
+# Will source ~/.aliases.osx on macOS or ~/.aliases.linux on Linux if they exist
+source_os_specific() {
+  local base_file="$1"
+  local os_suffix=""
+
+  if is_osx; then
+    os_suffix="osx"
+  elif is_linux; then
+    os_suffix="linux"
+  fi
+
+  if [[ -n "$os_suffix" ]]; then
+    local os_file="${HOME}/.${base_file}.${os_suffix}"
+    [[ -f "$os_file" ]] && source "$os_file"
+  fi
+}
+
+# Connect to a VTWA staging pod
+# Usage: stg         - connect to the main API pod
+#        stg <branch> - connect to an ephemeral branch pod (e.g. stg tegi-1369)
+stg() {
+  kubectl config use-context usw2-nrdy-eks-st
+
+  local pod
+  if [[ -n "$1" ]]; then
+    pod=$(kubectl get pods -n sup-st --no-headers | grep "vt-vtwa-$1-ephemeral-api" | head -1 | awk '{print $1}')
+  else
+    pod=$(kubectl get pods -n sup-st --no-headers | grep "vt-vtwa-api" | head -1 | awk '{print $1}')
+  fi
+
+  if [[ -z "$pod" ]]; then
+    echo "No matching pod found"
+    return 1
+  fi
+
+  echo "Connecting to $pod..."
+  kubectl exec --namespace=sup-st --stdin --tty "$pod" -- /bin/bash
+}
+
+# Connect to a VTWA production pod
+# Usage: prd         - connect to the main API pod
+#        prd <branch> - connect to an ephemeral branch pod (e.g. prd tegi-1369)
+prd() {
+  kubectl config use-context usw2-nrdy-eks-pr
+
+  local pod
+  if [[ -n "$1" ]]; then
+    pod=$(kubectl get pods -n sup-pr --no-headers | grep "vt-vtwa-$1-ephemeral-api" | head -1 | awk '{print $1}')
+  else
+    pod=$(kubectl get pods -n sup-pr --no-headers | grep "vt-vtwa-api" | head -1 | awk '{print $1}')
+  fi
+
+  if [[ -z "$pod" ]]; then
+    echo "No matching pod found"
+    return 1
+  fi
+
+  echo "Connecting to $pod..."
+  kubectl exec --namespace=sup-pr --stdin --tty "$pod" -- /bin/bash
+}
